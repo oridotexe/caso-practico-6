@@ -15,6 +15,8 @@ CREATE TABLE RESUMEN_COMISIONES_VENDEDORES (
 
 -- FUNCIONES:
 
+
+
 CREATE OR REPLACE FUNCTION CALCULAR_COMISION(P_MONTO_COBRADO NUMBER) RETURN NUMBER IS
     CONSTANTE_COMISION NUMBER := 15;
 BEGIN
@@ -162,4 +164,19 @@ BEGIN
     END LOOP;
 
     COMMIT;
+END;
+
+--Ejemplo Procedimiento mas funciones
+
+BEGIN
+    FOR año IN 2017..2019 LOOP
+        FOR mes IN 1..12 LOOP
+        
+            IF año = 2019 AND mes > 5 THEN
+                EXIT;
+            END IF;
+            
+            CARGAR_COMISIONES_VENDEDORES(año, mes);
+        END LOOP;
+    END LOOP;
 END;
