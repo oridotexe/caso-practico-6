@@ -9,18 +9,22 @@ DECLARE
 BEGIN
     SELECT COUNT(*) INTO v_cliente_exists FROM CLIENTES WHERE id_cliente = :NEW.fk_clientes;
     IF v_cliente_exists = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('El cliente no existe');
+        RAISE_APPLICATION_ERROR(-20000, 'Error: El cliente no existe');
     END IF;
 
     SELECT COUNT(*) INTO v_sucursal_exists FROM SUCURSALES WHERE id_sucursal = :NEW.fk_sucursales;
     IF v_sucursal_exists = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('La sucursal no existe');
+        RAISE_APPLICATION_ERROR(-20001, 'Error: La sucursal no existe');
     END IF;
 
     SELECT ciudad_cl, segmento_cl INTO v_ciudad, v_segmento FROM CLIENTES WHERE id_cliente = :NEW.fk_clientes;
     IF v_ciudad != 'Bogotá' OR v_segmento != 'Mujer' THEN
-        DBMS_OUTPUT.PUT_LINE('El cliente debe ser de Bogotá y del segmento Mujer');
+            RAISE_APPLICATION_ERROR(-20002, 'Error: El cliente debe ser de Bogotá y del segmento Mujer.');
     END IF;
+
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE_APPLICATION_ERROR(-20003, 'Error: No se pudo recuperar la información del cliente.');
 END;
 /
 
