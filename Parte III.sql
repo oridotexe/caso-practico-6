@@ -18,7 +18,7 @@ BEGIN
     END IF;
 
     SELECT ciudad_cl, segmento_cl INTO v_ciudad, v_segmento FROM CLIENTES WHERE id_cliente = :NEW.fk_clientes;
-    IF v_ciudad != 'Bogotá' OR v_segmento != 'Mujer' THEN
+    IF v_ciudad != 'BOGOT�' OR v_segmento != 'MUJER' THEN
             RAISE_APPLICATION_ERROR(-20002, 'Error: El cliente debe ser de Bogotá y del segmento Mujer.');
     END IF;
 
@@ -85,5 +85,3 @@ BEGIN
     VALUES ('Sucursales', v_evento, SYSTIMESTAMP);
 END;
 /
-
-
