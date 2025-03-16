@@ -7,19 +7,16 @@ DECLARE
     v_ciudad VARCHAR2(100);
     v_segmento VARCHAR2(100);
 BEGIN
-    --1. Validar que el cliente exista
     SELECT COUNT(*) INTO v_cliente_exists FROM CLIENTES WHERE id_cliente = :NEW.fk_clientes;
     IF v_cliente_exists = 0 THEN
         DBMS_OUTPUT.PUT_LINE('El cliente no existe');
     END IF;
 
-    --2. Validar que la sucursal exista
     SELECT COUNT(*) INTO v_sucursal_exists FROM SUCURSALES WHERE id_sucursal = :NEW.fk_sucursales;
     IF v_sucursal_exists = 0 THEN
         DBMS_OUTPUT.PUT_LINE('La sucursal no existe');
     END IF;
 
-    --3. Validar que la ciudad del cliente sea Bogotá y el segmento sea Mujer
     SELECT ciudad_cl, segmento_cl INTO v_ciudad, v_segmento FROM CLIENTES WHERE id_cliente = :NEW.fk_clientes;
     IF v_ciudad != 'Bogotá' OR v_segmento != 'Mujer' THEN
         DBMS_OUTPUT.PUT_LINE('El cliente debe ser de Bogotá y del segmento Mujer');
