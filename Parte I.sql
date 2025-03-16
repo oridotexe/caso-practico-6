@@ -42,5 +42,12 @@ BEGIN
       END IF;
     END LOOP;
   END LOOP;
+
+EXCEPTION
+  WHEN VALUE_ERROR THEN
+    DBMS_OUTPUT.PUT_LINE('Error: Se intentó realizar una conversión inválida.');
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Error inesperado: ' || SQLERRM);
+
 END;
 /
