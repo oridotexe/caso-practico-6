@@ -29,7 +29,6 @@ END;
 /
 
 
-
 -- tabla bitacora
 DROP TABLE BITACORA CASCADE CONSTRAINTS;
 
