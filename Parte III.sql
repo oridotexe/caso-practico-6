@@ -4,8 +4,8 @@ FOR EACH ROW
 DECLARE
     v_cliente_exists NUMBER;
     v_sucursal_exists NUMBER;
-    v_ciudad VARCHAR2(100);
-    v_segmento VARCHAR2(100);
+    v_ciudad CLIENTES.CIUDAD_CL%TYPE;
+    v_segmento CLIENTES.SEGMENTO_CL%TYPE;
 BEGIN
     SELECT COUNT(*) INTO v_cliente_exists FROM CLIENTES WHERE id_cliente = :NEW.fk_clientes;
     IF v_cliente_exists = 0 THEN
@@ -24,10 +24,9 @@ BEGIN
 
     EXCEPTION
         WHEN NO_DATA_FOUND THEN
-            RAISE_APPLICATION_ERROR(-20003, 'Error: No se pudo recuperar la informacion del cliente.');
+            RAISE_APPLICATION_ERROR(-20003, 'No se pudo recuperar la informacion del cliente.');
 END;
 /
-
 
 -- tabla bitacora
 DROP TABLE BITACORA CASCADE CONSTRAINTS;
@@ -51,7 +50,7 @@ BEGIN
     END IF;
     
     INSERT INTO bitacora (nombre_tabla, evento, fecha_y_hora)
-    VALUES ('Vendedores', v_evento, SYSTIMESTAMP);
+    VALUES ('VENDEDORES', v_evento, SYSTIMESTAMP);
 END;
 /
 
@@ -67,7 +66,7 @@ BEGIN
     END IF;
     
     INSERT INTO bitacora (nombre_tabla, evento, fecha_y_hora)
-    VALUES ('Canales', v_evento, SYSTIMESTAMP);
+    VALUES ('CANALES', v_evento, SYSTIMESTAMP);
 END;
 /
 
@@ -83,8 +82,6 @@ BEGIN
     END IF;
     
     INSERT INTO bitacora (nombre_tabla, evento, fecha_y_hora)
-    VALUES ('Sucursales', v_evento, SYSTIMESTAMP);
+    VALUES ('SUCURSALES', v_evento, SYSTIMESTAMP);
 END;
 /
-
-
