@@ -1,6 +1,7 @@
 SET SERVEROUTPUT ON;
 
 -- Requerimiento 1
+
 DECLARE
 CURSOR cursor_cli
   IS
@@ -44,10 +45,7 @@ BEGIN
   END LOOP;
 
 EXCEPTION
-  WHEN VALUE_ERROR THEN
-    DBMS_OUTPUT.PUT_LINE('Error: Se intentó realizar una conversión inválida.');
   WHEN OTHERS THEN
     DBMS_OUTPUT.PUT_LINE('Error inesperado: ' || SQLERRM);
-
 END;
 /
